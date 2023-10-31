@@ -1,0 +1,2 @@
+# netdevops-python
+This project combines the power of Python, Docker, Kubernetes, Git, Jenkins, Netconf/Restconf, and REST APIs to automate and manage network device configurations in a modern, containerized, and orchestrated environment. It showcases network automation, containerization, and orchestration skills while following Agile development principles. Explore the intersection of network management and DevOps through this comprehensive project.
