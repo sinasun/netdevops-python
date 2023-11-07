@@ -1,26 +1,46 @@
 import socket
-import subprocess
 import speedtest
+import os
+from urllib import request
 
-def ping(host, count=4):
+class NetworkNotConnectedException(Exception):
+    pass
+
+def internet_connected():
     try:
-        subprocess.check_output(["ping", "-c", str(count), host])
+        request.urlopen('http://216.58.192.142', timeout=1)
         return True
-    except subprocess.CalledProcessError:
+    except Exception: 
         return False
+
+def ping(host):
+    if internet_connected: 
+        response = os.system(f"ping -c 1 {host}")
+        if response == 0:
+            return True  # Network is connected and ping is working
+        else:
+            return False # Network is connected but ping is not working
+    raise NetworkNotConnectedException("No network connectivity")
 
 def check_port(host, port):
-    try:
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.settimeout(1)
-            s.connect((host, port))
-        return True
-    except (socket.timeout, ConnectionRefusedError):
-        return False
+    if internet_connected:
+        try:
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.settimeout(1)
+                s.connect((host, port))
+            return True
+        except (socket.timeout, ConnectionRefusedError):
+            return False
+    raise NetworkNotConnectedException("No network connectivity")
 
 def speed_test():
-    st = speedtest.Speedtest(secure=True)
-    st.get_best_server()
-    download_speed = st.download() / 1_000_000
-    upload_speed = st.upload() / 1_000_000
+    try:
+        st = speedtest.Speedtest()
+        st.get_best_server()
+        download_speed = st.download() / 1_000_000 # Convert to Mbps
+        upload_speed = st.upload() / 1_000_000 # Convert to Mbps
+    except (speedtest.ConfigRetrievalError, speedtest.NoMatchedServers):
+        # No network connection 
+        raise NetworkNotConnectedException("No network connectivity")
+
     return download_speed, upload_speed
