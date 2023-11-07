@@ -19,7 +19,7 @@ def check_port(host, port):
         return False
 
 def speed_test():
-    st = speedtest.Speedtest()
+    st = speedtest.Speedtest(secure=True)
     st.get_best_server()
     download_speed = st.download() / 1_000_000
     upload_speed = st.upload() / 1_000_000
