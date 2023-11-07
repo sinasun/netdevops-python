@@ -35,6 +35,8 @@ def check_port(host, port):
     raise NetworkNotConnectedException("No network connectivity")
 
 def speed_test():
+    download_speed = 0
+    upload_speed = 0
     try:
         st = speedtest.Speedtest()
         st.get_best_server()
