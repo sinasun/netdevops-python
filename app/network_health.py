@@ -8,13 +8,14 @@ class NetworkNotConnectedException(Exception):
 
 def internet_connected():
     try:
-        request.urlopen('http://216.58.192.142', timeout=1)
+        request.urlopen('http://8.8.8.8', timeout=1)
         return True
     except Exception: 
         return False
 
 def ping(host):
-    if internet_connected: 
+    if internet_connected is True: 
+        print("ping running")
         response = os.system(f"ping -c 1 {host}")
         if response == 0:
             return True  # Network is connected and ping is working
@@ -23,7 +24,7 @@ def ping(host):
     raise NetworkNotConnectedException("No network connectivity")
 
 def check_port(host, port):
-    if internet_connected:
+    if internet_connected is True:
         try:
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 s.settimeout(1)
