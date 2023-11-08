@@ -6,7 +6,7 @@
 ![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)
 ![Jenkins](https://img.shields.io/badge/jenkins-%232C5263.svg?style=for-the-badge&logo=jenkins&logoColor=white)
 
-[![Build Status](https://github.com/sinasun/netdevops-python/workflows/CI/badge.svg)](https://github.com/sinasun/netdevops-python/actions)
+[![Build Status](https://github.com/sinasun/netdevops-python/actions/workflows/python-app.yml/badge.svg)](https://github.com/sinasun/netdevops-python/actions)
 
 A Python-based network health monitoring application that checks the health of a network by performing tasks such as ping tests, port checks, and network speed tests. This project is designed to be run in a Docker container and deployed to a Kubernetes cluster for automated monitoring.
 
