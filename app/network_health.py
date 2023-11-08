@@ -35,15 +35,15 @@ def check_port(host, port):
     raise NetworkNotConnectedException("No network connectivity")
 
 def speed_test():
-    download_speed = 0
-    upload_speed = 0
-    try:
-        st = speedtest.Speedtest()
-        st.get_best_server()
-        download_speed = st.download() / 1_000_000 # Convert to Mbps
-        upload_speed = st.upload() / 1_000_000 # Convert to Mbps
-    except (speedtest.ConfigRetrievalError, speedtest.NoMatchedServers):
-        # No network connection 
+    if internet_connected is True:
+        try:
+            st = speedtest.Speedtest()
+            st.get_best_server()
+            download_speed = st.download() / 1_000_000 # Convert to Mbps
+            upload_speed = st.upload() / 1_000_000 # Convert to Mbps
+            return download_speed, upload_speed
+        except (speedtest.ConfigRetrievalError, speedtest.NoMatchedServers):
+            # No network connection 
+            raise NetworkNotConnectedException("No network connectivity")
+    else:
         raise NetworkNotConnectedException("No network connectivity")
-
-    return download_speed, upload_speed
