@@ -10,8 +10,8 @@ pipeline {
         
         stage('Build') {
             steps {
-                sh 'docker build -t python-app:latest .'
-                sh 'docker push python-app:latest'
+                sh 'docker build -t network-monitoring-app:latest .'
+                sh 'docker push network-monitoring-app:latest'
             }
         }
         

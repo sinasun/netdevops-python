@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: network-monitoring-app
-          image: python-app:latest
+          image: network-monitoring-app:latest
           ports:
             - containerPort: 8080
 
